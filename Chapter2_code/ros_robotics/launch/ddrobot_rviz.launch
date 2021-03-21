@@ -8,9 +8,11 @@
    <param name="use_gui" value="$(arg gui)"/>
 
    <!-- Start 3 nodes: joint_state_publisher, robot_state_publisher and rviz -->
-   <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" />
+   <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" unless="$(arg gui)"/>
 
-   <node name="robot_state_publisher" pkg="robot_state_publisher" type="state_publisher" />
+   <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" />
+
+   <node name="joint_state_publisher_gui" pkg="joint_state_publisher_gui" type="joint_state_publisher_gui" if="$(arg gui)"/>
 
    <node name="rviz" pkg="rviz" type="rviz" args="-d $(find ros_robotics)/urdf.rviz" required="true" />
    <!-- (required = "true") if rviz dies, entire roslaunch will be killed -->
